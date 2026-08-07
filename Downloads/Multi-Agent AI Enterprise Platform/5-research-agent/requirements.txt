@@ -1,0 +1,9 @@
+ fastapi>=0.100.0
+uvicorn>=0.22.0
+pydantic>=2.0.0
+ddgs>=0.1.0
+pandas>=2.0.0                  # For CSV / Excel / Structured data parsing
+pypdf>=3.0.0                   # For extracting text from company PDFs
+langchain-community>=0.0.10    # For text chunking and vector storage
+faiss-cpu>=1.7.4               # For vector similarity search
+python-multipart>=0.0.6        # For handling HTTP file uploads in FastAPI

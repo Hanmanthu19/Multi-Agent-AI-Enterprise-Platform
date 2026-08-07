@@ -1,0 +1,17 @@
+[
+  {
+    "doc_id": "DOC-REF-01",
+    "title": "Standard Operating Procedure - Electronics Return",
+    "content": "Electronics returns are valid for 14 days from delivery date. Items must have original seal intact. Claims above ₹5,000 require proof of purchase."
+  },
+  {
+    "doc_id": "DOC-REF-02",
+    "title": "Logistics & Shipping Policy",
+    "content": "Deliveries across India are fulfilled via BlueDart and Delhivery. Standard transit timeline is 3 to 5 business days."
+  },
+  {
+    "doc_id": "DOC-REF-03",
+    "title": "Warranty Service Terms",
+    "content": "Standard hardware warranty covers manufacturing defects for 90 days. Accidental liquid damage is excluded unless covered by Extended Care."
+  }
+]

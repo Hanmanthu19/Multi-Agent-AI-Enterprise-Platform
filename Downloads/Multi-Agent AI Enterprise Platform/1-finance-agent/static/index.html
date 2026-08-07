@@ -1,0 +1,289 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise AI Finance Workforce Governance Engine</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    input, button {
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    input {
+      background: #0f172a;
+      color: #fff;
+      flex: 1;
+    }
+
+    input:focus {
+      outline: 1px solid var(--accent);
+    }
+
+    button {
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    button:disabled {
+      background: var(--border);
+      cursor: not-allowed;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .card.success { border-left-color: var(--success); }
+    .card.warning { border-left-color: var(--warning); }
+    .card.danger { border-left-color: var(--danger); }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .card-body {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .badge {
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    .badge-success { background: #14532d; color: #4ade80; }
+    .badge-warning { background: #451a03; color: #fbbf24; }
+
+    .btn-approve { background: var(--success); color: white; margin-right: 0.5rem; }
+    .btn-reject { background: var(--danger); color: white; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Autonomous Financial Claim Governance</h1>
+  <p class="subtitle">Real-time Agentic Evaluation & Guardrail Execution Pipeline (INR ₹)</p>
+
+  <div class="form-group">
+    <input type="text" id="customer_id" placeholder="Customer ID" value="CUST-101" style="max-width: 150px;">
+    <input type="text" id="claim" placeholder="Describe financial claim..." value="Damaged product refund request for 3000 rupees">
+    <button id="submitBtn" onclick="processClaim()">Process Claim</button>
+  </div>
+
+  <div id="timeline" class="timeline"></div>
+</div>
+
+<script>
+  let eventSource = null;
+
+  function processClaim() {
+    const customerId = document.getElementById('customer_id').value;
+    const claim = document.getElementById('claim').value;
+    const timeline = document.getElementById('timeline');
+    const btn = document.getElementById('submitBtn');
+
+    if (!claim) return;
+
+    timeline.innerHTML = '';
+    btn.disabled = true;
+
+    if (eventSource) eventSource.close();
+
+    const url = `/api/v1/process-claim?claim=${encodeURIComponent(claim)}&customer_id=${encodeURIComponent(customerId)}`;
+    
+    eventSource = new EventSource(url);
+
+    eventSource.onmessage = function(event) {
+      const data = JSON.parse(event.data);
+      renderCard(data);
+
+      if (data.event === 'EXECUTION_DISPATCH' || data.event === 'HITL_ESCALATION_QUEUED') {
+        eventSource.close();
+        btn.disabled = false;
+      }
+    };
+
+    eventSource.onerror = function(err) {
+      console.error("SSE Error:", err);
+      eventSource.close();
+      btn.disabled = false;
+    };
+  }
+
+  function renderCard(data) {
+    const timeline = document.getElementById('timeline');
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    switch(data.event) {
+      case 'SUPERVISOR_ROUTING':
+        card.innerHTML = `
+          <div class="card-header">Step 1 • Supervisor Routing</div>
+          <div class="card-body">${data.message}</div>
+        `;
+        break;
+
+      case 'RAG_RETRIEVAL':
+        card.innerHTML = `
+          <div class="card-header">Step 2 • RAG Knowledge Search</div>
+          <div class="card-body">${data.message}</div>
+        `;
+        break;
+
+      case 'AGENT_REASONING':
+        card.innerHTML = `
+          <div class="card-header">Step 3 • Agent Policy Reasoning</div>
+          <div class="card-body">
+            <strong>Requested:</strong> ₹${data.proposed_amount_inr.toFixed(2)} INR<br>
+            <strong>Citation:</strong> <code>${data.citation}</code><br>
+            <strong>Reasoning:</strong> ${data.reasoning}
+          </div>
+        `;
+        break;
+
+      case 'GUARDRAIL_EVALUATION':
+        const isApproved = data.status === 'AUTO_APPROVED';
+        card.className = `card ${isApproved ? 'success' : 'warning'}`;
+        card.innerHTML = `
+          <div class="card-header">
+            Step 4 • Guardrail Engine 
+            <span class="badge ${isApproved ? 'badge-success' : 'badge-warning'}">${data.status}</span>
+          </div>
+          <div class="card-body">${data.notes}</div>
+        `;
+        break;
+
+      case 'EXECUTION_DISPATCH':
+        card.className = 'card success';
+        card.innerHTML = `
+          <div class="card-header">Step 5 • Final Execution Dispatch</div>
+          <div class="card-body"><strong>${data.message}</strong></div>
+        `;
+        break;
+
+      case 'HITL_ESCALATION_QUEUED':
+        card.className = 'card warning';
+        card.id = `card-${data.claim_id}`;
+        card.innerHTML = `
+          <div class="card-header">Step 5 • Human-In-The-Loop Escalation</div>
+          <div class="card-body">
+            <strong>${data.message}</strong>
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+              <button class="btn-approve" onclick="respondToEscalation('${data.claim_id}', true)">Approve Payment</button>
+              <button class="btn-reject" onclick="respondToEscalation('${data.claim_id}', false)">Reject Claim</button>
+            </div>
+          </div>
+        `;
+        break;
+    }
+
+    timeline.appendChild(card);
+  }
+
+  async function respondToEscalation(claimId, approved) {
+    const response = await fetch('/api/v1/manager/approve', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ claim_id: claimId, approved: approved })
+    });
+    
+    const result = await response.json();
+    const card = document.getElementById(`card-${claimId}`);
+    
+    if (result.status === 'APPROVED') {
+      card.className = 'card success';
+      card.innerHTML = `<div class="card-header">Step 5 • Manager Approved</div><div class="card-body"><strong>${result.message}</strong></div>`;
+    } else {
+      card.className = 'card danger';
+      card.innerHTML = `<div class="card-header">Step 5 • Manager Rejected</div><div class="card-body"><strong>${result.message}</strong></div>`;
+    }
+  }
+</script>
+
+</body>
+</html>

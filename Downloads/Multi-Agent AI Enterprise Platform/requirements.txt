@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlmodel
+pymysql
+cryptography
+pydantic-settings
+python-dotenv
+google-genai
+chromadb

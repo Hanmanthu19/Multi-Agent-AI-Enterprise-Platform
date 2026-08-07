@@ -1,0 +1,36 @@
+# ONE requirements file for the ONE backend process.
+# The backend imports all 4 agents directly (sys.path trick in app/main.py),
+# so this single venv needs every agent's dependencies combined.
+# Install with:  pip install -r requirements-all.txt
+
+fastapi>=0.100.0
+uvicorn>=0.22.0
+python-multipart>=0.0.6
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+python-dotenv>=1.0.0
+sqlmodel
+sqlalchemy>=2.0.0
+pymysql
+cryptography
+
+# Gemini
+google-genai
+google-generativeai>=0.5.0
+
+# Finance / HR / Research (RAG + vector search)
+langchain-community>=0.0.20
+langchain-core>=0.1.0
+langchain-text-splitters>=0.0.1
+faiss-cpu>=1.7.4
+chromadb>=0.4.22
+pypdf>=3.0.0
+pandas>=2.0.0
+
+# Sales
+langgraph>=0.0.30
+sentence-transformers>=2.2.2
+reportlab>=4.0.0
+
+# Research
+ddgs>=0.1.0
