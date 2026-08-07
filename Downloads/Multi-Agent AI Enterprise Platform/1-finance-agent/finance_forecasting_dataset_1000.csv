@@ -1,0 +1,2 @@
+forecast_id,department,financial_category,year,month,period,previous_period_actual_inr,current_actual_inr,budget_inr,budget_variance_inr,budget_variance_percent,growth_rate_percent,forecast_next_period_inr,forecast_lower_bound_inr,forecast_upper_bound_inr,forecast_confidence_percent,confidence_level,forecast_direction,risk_level,recommended_action
+FC000001,Marketing,Software,2024,1,2024-01,325454.77,339221.71,305548.88,33672.83,11.02,4.23,343729.38,315190.16,362368.83,80.8,Low,Increase,Low,Monitor trend
