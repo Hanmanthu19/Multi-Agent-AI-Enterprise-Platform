@@ -1,0 +1,2 @@
+transaction_id,employee_id,department,transaction_date,transaction_type,amount_inr,payment_method,channel,vendor_id,location,location_match,velocity_24h_count,unusual_time_flag,duplicate_transaction_flag,vendor_risk_level,fraud_type,fraud_label,risk_score,recommended_action,review_status,reviewer
+TXN000001,EMP1129,HR,2026-05-03 00:39:00,Purchase,439591.32,ACH,POS,VND1074,Kolkata,No,19,No,No,Low,Account Takeover,Fraud,94.7,Block,Blocked,Analyst_104
